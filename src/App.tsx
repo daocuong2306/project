@@ -1,12 +1,10 @@
-import Couter from "./components/Couter";
-import List from "./components/List";
+import Form from "./components/login/Form";
 
 const App = () => {
     return (
         <div>
             <h2>List Component</h2>
-            <List />
-            <Couter/>
+            <Form/>
         </div>
     );
 };
