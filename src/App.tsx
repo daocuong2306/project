@@ -1,11 +1,14 @@
 import Form from "./components/login/Form";
-
+import Signin from "./components/login/Signin";
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
 const App = () => {
     return (
-        <div>
-            <h2>List Component</h2>
-            <Form/>
-        </div>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Form/>}></Route>
+            <Route path="/signin" element={<Signin/>}></Route>
+        </Routes>
+      </BrowserRouter>
     );
 };
 

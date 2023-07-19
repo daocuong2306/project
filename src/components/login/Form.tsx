@@ -1,14 +1,36 @@
 import { useEffect } from 'react';
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 type Props = {}
 
 const Form = (props: Props) => {
     //tạo ra biến để sử dụng được các chức năng trong reducer
     const dispatch = useDispatch();
     //lấy dữ liệu từ reducer
-    const {user} = useSelector((state:any) =>state.user)
-    console.log(user);
-  
+    const { user } = useSelector((state: any) => state.user)
+    //tạo 1 biến navigate 
+    const url = useNavigate()
+    const { register, handleSubmit } = useForm();
+    const callUserApi = async () => {
+        try {
+            const users = await axios.get("http://localhost:3000/user/");
+            dispatch({ type: "user/login", payload: users })
+        } catch (error) { }
+    }
+    const onHandleSubmit = (d: any) => {
+        callUserApi()
+        const data = user.data
+        for (let item of data) {
+            if((item.acc===d.acc) && (item.pass==d.password)) {
+               url("/signin")
+            } else {
+                alert("sai tk hoac mk")
+            }
+        }
+       
+    }
     return (
         <>
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -21,15 +43,17 @@ const Form = (props: Props) => {
                     </p>
                 </div>
 
-                <form action="" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+                <form action="" onSubmit={handleSubmit(onHandleSubmit)} className="mx-auto mb-0 mt-8 max-w-md space-y-4">
                     <div>
-                        <label htmlFor="email" className="sr-only">Email</label>
+                        <label htmlFor="acc" className="sr-only">Email</label>
 
                         <div className="relative">
                             <input
-                                type="email"
+                                type="text"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                {...register("acc")}
                                 placeholder="Enter email"
+
                             />
 
                             <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -58,6 +82,7 @@ const Form = (props: Props) => {
                             <input
                                 type="password"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                {...register("password")}
                                 placeholder="Enter password"
                             />
 
@@ -95,6 +120,7 @@ const Form = (props: Props) => {
                         <button
                             type="submit"
                             className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                            value="submit"
                         >
                             Sign in
                         </button>
