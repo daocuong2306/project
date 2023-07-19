@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {useDispatch,useSelector} from 'react-redux'
 type Props = {}
 
@@ -7,7 +8,7 @@ const Form = (props: Props) => {
     //lấy dữ liệu từ reducer
     const {user} = useSelector((state:any) =>state.user)
     console.log(user);
-    
+  
     return (
         <>
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
