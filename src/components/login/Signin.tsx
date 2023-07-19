@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
+import { IUser } from '@/interface/user';
 type Props = {}
 
 const Signin = (props: Props) => {
@@ -19,11 +20,11 @@ const Signin = (props: Props) => {
             dispatch({ type: "user/login", payload: users })
         } catch (error) { }
     }
-    const onHandleSubmit = (d: any) => {
+    const onHandleSubmit = (d: IUser) => {
         callUserApi()
         const data = user.data
         for (let item of data) {
-            if((item.acc===d.acc) && (item.pass==d.password)) {
+            if((item.acc===d.acc) && (item.pass==d.pass)) {
                url("/signin")
             } else {
                 alert("sai tk hoac mk")
@@ -82,7 +83,7 @@ const Signin = (props: Props) => {
                             <input
                                 type="password"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                {...register("password")}
+                                {...register("pass")}
                                 placeholder="Enter password"
                             />
 
