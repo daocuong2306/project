@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 const initialState = {
-    products: [] as any[]
+    products: [] as any[],
+    product : {}
 }
 
 export const productReducer = (state = initialState, action: any) => {
@@ -10,16 +11,19 @@ export const productReducer = (state = initialState, action: any) => {
                 drafState.products = action.payload;
                 return;
             case "admin/fetch_productByid":
-                drafState.products = action.payload;
+                console.log(state); //arr
+                drafState.product = action.payload; //arr=>obj
+                console.log(state); //obj
                 return;
             case "admin/add_product":
                 drafState.products.push(action.payload)
                 return;
             case "admin/update_product":
-                const {product} = action.payload;
-                const {products} = state
+                const  product  = action.payload;
+                const {products} =state;
                 
                 drafState.products = products.map(item => item.id == product.id ? product : item)
+                // state.products = drafState.products;
                 return;
             case "admin/delete_product":
                 const id = action.payload

@@ -7,11 +7,11 @@ import { Dispatch } from 'redux'
 const Dashboard = () => {
     const dispatch: Dispatch<any> = useDispatch()
     const { products } = useSelector((state: any) => state.products);
-
     useEffect(() => {
         dispatch(getProduct());
     }, [])
     console.log(products);
+    
     const removeProduct=async(id:any)=>{
         await remove(id)
         dispatch({type:"admin/delete_product",payload:id})
@@ -34,7 +34,7 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-center">
-                    {products.map((product: any) => {
+                    {products?.map((product: any) => {
                         return <tr key={product.id}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 {product?.name}

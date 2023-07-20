@@ -9,7 +9,7 @@ const EditProduct = () => {
     const { id } = useParams()
     const dispatch: Dispatch<any> = useDispatch();
     //lấy dữ liệu từ reducer
-    const { products } = useSelector((state: any) => state.products)
+    const { product } = useSelector((state: any) => state.products)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
@@ -19,9 +19,6 @@ const EditProduct = () => {
     }, [])
     
     const onHandleSubmit = (d: any) => {
-        dispatch(getProduct());
-        console.log(products);
-        
         dispatch(editProductApi(id, d))
         url("/products")
     }
@@ -38,7 +35,7 @@ const EditProduct = () => {
                                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
                                     type="text"
                                     id="name"
-                                    defaultValue={products.name}
+                                    defaultValue={product.name}
                                     {...register("name")}
                                 />
                             </div>
@@ -48,7 +45,7 @@ const EditProduct = () => {
                                     className="w-full rounded-lg border-gray-200 p-3 text-sm"
                                     type="number"
                                     id="price"
-                                    defaultValue={products.price}
+                                    defaultValue={product.price}
                                     {...register("price")}
                                 />
                             </div>

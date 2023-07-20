@@ -1,14 +1,19 @@
 {
   "products": [
     {
-      "name": "fahadbsdfbf",
-      "price": "435334",
-      "id": 6
-    },
-    {
-      "name": "sadsabafbwr",
+      "name": "12312321",
       "price": "",
       "id": 7
+    },
+    {
+      "name": "update1",
+      "price": "",
+      "id": 1
+    },
+    {
+      "name": "123123213123",
+      "price": "",
+      "id": 2
     }
   ],
   "user": [

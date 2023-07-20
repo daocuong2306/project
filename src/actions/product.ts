@@ -4,7 +4,6 @@ export const getProduct = () => async (dispatch: any) => {
     try {
         const { data } = await getAll()
         dispatch({ type: "admin/fetch_product", payload: data })
-
     } catch (error) {
     }
 }
