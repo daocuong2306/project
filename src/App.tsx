@@ -4,6 +4,7 @@ import Signup from "./components/login/Signup";
 import Dashboard from "./components/admin/dashboard";
 import AddProduct from "./components/admin/addProduct";
 import EditProduct from "./components/admin/editProduct";
+import PriceFilter from "./components/demo/priceFilter";
 const App = () => {
     return (
       <BrowserRouter>
@@ -13,13 +14,10 @@ const App = () => {
             <Route path="/products" element={<Dashboard/>}></Route>
             <Route path="/edit/:id" element={<EditProduct/>}></Route>
             <Route path="/add" element={<AddProduct/>}></Route>
-            
+            <Route path="/filter" element={<PriceFilter/>}></Route>
         </Routes>
       </BrowserRouter>
     );
 };
 
 export default App;
-
-// closure
-// currying

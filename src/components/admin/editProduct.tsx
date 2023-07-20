@@ -55,6 +55,16 @@ console.log(products);
                                     {...register("name")}
                                 />
                             </div>
+                            <div>
+                                <label className="sr-only" htmlFor="name">Price</label>
+                                <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    type="number"
+                                    id="price"
+                                    defaultValue={products.price}
+                                    {...register("price")}
+                                />
+                            </div>
                             <div className="mt-4">
                                 <button
                                     type="submit"

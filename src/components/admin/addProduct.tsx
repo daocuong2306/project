@@ -10,7 +10,7 @@ const AddProduct = () => {
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
-    const addProductApi = async (d:any) => {
+    const addProductApi = async (d: any) => {
         try {
             const product = await create(d)
             dispatch({ type: "admin/add_product", payload: product })
@@ -18,7 +18,7 @@ const AddProduct = () => {
     }
     const onHandleSubmit = (d: any) => {
         addProductApi(d)
-       url("/products")
+        url("/products")
     }
     return (
 
@@ -38,13 +38,23 @@ const AddProduct = () => {
                                     {...register("name")}
                                 />
                             </div>
+                            <div>
+                                <label className="sr-only" htmlFor="name">Price</label>
+                                <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Price"
+                                    type="text"
+                                    id="price"
+                                    {...register("price")}
+                                />
+                            </div>
                             <div className="mt-4">
                                 <button
                                     type="submit"
                                     className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-                                
+
                                 >
-                                   Add Product
+                                    Add Product
                                 </button>
                             </div>
                         </form>

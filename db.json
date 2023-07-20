@@ -2,26 +2,32 @@
   "products": [
     {
       "name": "a",
-      "id": 1
+      "id": 1,
+      "price": 400
     },
     {
       "id": 2,
-      "name": "Product B"
+      "name": "Product B",
+      "price": 900
     },
     {
       "id": 3,
-      "name": "Product C"
+      "name": "Product C",
+      "price": 1400
     },
     {
       "name": "cuong",
-      "id": 4
+      "id": 4,
+      "price": 1900
     },
     {
       "name": "product E",
-      "id": 5
+      "id": 5,
+      "price": 400
     },
     {
-      "name": "frgdvusidnb",
+      "name": "vsdfnm,",
+      "price": 600,
       "id": 6
     }
   ],

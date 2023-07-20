@@ -1,4 +1,4 @@
-import { getAll,remove } from '@/api/products'
+import { getAll, remove } from '@/api/products'
 import React from 'react'
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,24 +21,27 @@ const Dashboard = () => {
         getProduct()
     }, [])
 
-    const removeProduct=async(id:any)=>{
+    const removeProduct = async (id: any) => {
         try {
-           const {data} =await remove(id)
+            const { data } = await remove(id)
             dispatch({ type: "admin/delete_product", payload: data })
         } catch (error) {
-            
+
         }
     }
     console.log(products);
 
     return (
-
+       
         <div className="overflow-x-auto">
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                     <tr>
                         <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                             Name
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Price
                         </th>
                         <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                             Action
@@ -52,6 +55,9 @@ const Dashboard = () => {
                         return <tr>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 {product?.name}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                {product?.price}
                             </td>
                             <div className=''>
                                 <Link to={`/edit/${product.id}`}><button className='bg-green-500 text-white p-[10px]'>Edit</button></Link>
