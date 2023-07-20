@@ -19,6 +19,9 @@ const EditProduct = () => {
     }, [])
     
     const onHandleSubmit = (d: any) => {
+        dispatch(getProduct());
+        console.log(products);
+        
         dispatch(editProductApi(d, id))
         url("/products")
     }

@@ -11,8 +11,7 @@ export const getProduct = () => async (dispatch: any) => {
 export const getProductByID = (id: any) => async (dispatch: any) => {
     try {
         const { data } = await getById(id)
-        console.log(data);
-        
+        dispatch({type: "admin/fetch_productByid" , payload : data})        
     } catch (error) { }
 }
 
