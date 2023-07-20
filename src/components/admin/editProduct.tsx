@@ -61,7 +61,7 @@ console.log(products);
                                     className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
 
                                 >
-                                    Add Product
+                                    Update Product
                                 </button>
                             </div>
                         </form>
