@@ -1,4 +1,5 @@
 import { getProduct, removeProduct } from '@/actions/product'
+import { remove } from '@/api/products'
 import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -11,7 +12,10 @@ const Dashboard = () => {
         dispatch(getProduct());
     }, [])
     console.log(products);
-
+    const removeProduct=async(id:any)=>{
+        await remove(id)
+        dispatch({type:"admin/delete_product",payload:id})
+    }
     return (
         <div className="overflow-x-auto">
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
@@ -19,6 +23,9 @@ const Dashboard = () => {
                     <tr>
                         <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                             Name
+                        </th>
+                        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Price
                         </th>
                         <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                             Action
@@ -31,6 +38,9 @@ const Dashboard = () => {
                         return <tr key={product.id}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 {product?.name}
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                {product?.price}
                             </td>
                             <td> <div className=''>
                                 <Link to={`/edit/${product.id}`}><button className='bg-green-500 text-white p-[10px]'>Edit</button></Link>
