@@ -22,7 +22,7 @@ const EditProduct = () => {
         dispatch(getProduct());
         console.log(products);
         
-        dispatch(editProductApi(d, id))
+        dispatch(editProductApi(id, d))
         url("/products")
     }
     return (
@@ -42,13 +42,23 @@ const EditProduct = () => {
                                     {...register("name")}
                                 />
                             </div>
+                            <div>
+                                <label className="sr-only" htmlFor="name">Price</label>
+                                <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    type="number"
+                                    id="price"
+                                    defaultValue={products.price}
+                                    {...register("price")}
+                                />
+                            </div>
                             <div className="mt-4">
                                 <button
                                     type="submit"
                                     className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
 
                                 >
-                                    Add Product
+                                    Edit Product
                                 </button>
                             </div>
                         </form>

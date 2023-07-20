@@ -30,7 +30,7 @@ export const addProductApi = (d: any) => async (dispatch: any) => {
     } catch (error) { }
 }
 
-export const editProductApi = (d: any, id: any) => async (dispatch: any) => {
+export const editProductApi = (id: any, d: any) => async (dispatch: any) => {
     try {
         const { data } = await edit(id, d);
         dispatch({ type: "admin/update_product", payload: data })
