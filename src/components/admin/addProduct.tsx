@@ -1,23 +1,19 @@
+import { addProductApi } from '@/actions/product';
 import { create } from '@/api/products';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { Dispatch } from 'redux';
 const AddProduct = () => {
-    const dispatch = useDispatch();
+    const dispatch:Dispatch<any> = useDispatch();
     //lấy dữ liệu từ reducer
     const { products } = useSelector((state: any) => state.products)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
-    const addProductApi = async (d:any) => {
-        try {
-            const product = await create(d)
-            dispatch({ type: "admin/add_product", payload: product })
-        } catch (error) { }
-    }
+    
     const onHandleSubmit = (d: any) => {
-        addProductApi(d)
+        dispatch( addProductApi(d))
        url("/products")
     }
     return (

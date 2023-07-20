@@ -4,7 +4,7 @@ import Signup from "./components/user/login/Signup";
 import Dashboard from "./components/admin/dashboard";
 import AddProduct from "./components/admin/addProduct";
 import EditProduct from "./components/admin/editProduct";
-import Product from "./components/user/product/product";
+import Product from "./components/user/product/Product";
 const App = () => {
     return (
       <BrowserRouter>

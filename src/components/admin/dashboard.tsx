@@ -1,38 +1,18 @@
-import { getAll, remove } from '@/api/products'
-import React from 'react'
-import { useState, useEffect } from "react"
+import { getProduct, removeProduct } from '@/actions/product'
+import { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Dispatch } from 'redux'
 const Dashboard = () => {
-    const dispatch = useDispatch()
-
-    const { products } = useSelector((state: any) => state.products)
+    const dispatch: Dispatch<any> = useDispatch()
+    const { products } = useSelector((state: any) => state.products);
 
     useEffect(() => {
-        const getProduct = async () => {
-            try {
-                const { data } = await getAll()
-                dispatch({ type: "admin/fetch_product", payload: data })
-
-            } catch (error) {
-
-            }
-        }
-        getProduct()
+        dispatch(getProduct());
     }, [])
-
-    const removeProduct = async (id: any) => {
-        try {
-            await remove(id)
-            dispatch({ type: "admin/delete_product", payload: id })
-        } catch (error) {
-
-        }
-    }
     console.log(products);
 
     return (
-
         <div className="overflow-x-auto">
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
@@ -46,17 +26,16 @@ const Dashboard = () => {
 
                     </tr>
                 </thead>
-
                 <tbody className="divide-y divide-gray-200 text-center">
                     {products.map((product: any) => {
-                        return <tr>
+                        return <tr key={product.id}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 {product?.name}
                             </td>
-                            <div className=''>
+                            <td> <div className=''>
                                 <Link to={`/edit/${product.id}`}><button className='bg-green-500 text-white p-[10px]'>Edit</button></Link>
                                 <button className='bg-red-500 text-white p-[10px]' onClick={() => removeProduct(product.id)}>Delete</button>
-                            </div>
+                            </div></td>
                         </tr>
 
                     })}

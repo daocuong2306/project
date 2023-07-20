@@ -9,17 +9,12 @@ export const productReducer = (state = initialState, action: any) => {
             case "admin/fetch_product":
                 drafState.products = action.payload;
                 return;
-            case "admin/fetch_productById":
-                drafState.products = action.payload;
-                return;
             case "admin/add_product":
                 drafState.products.push(action.payload)
                 return;
             case "admin/update_product":
                 const product = action.payload;
-                drafState.products = state.products.map((item: any) =>
-                    item.id === product.id ? product : item
-                );
+                drafState.products = state.products.map(item => item.id == product.id ? product : item)
                 return;
             case "admin/delete_product":
                 const id = action.payload
@@ -27,7 +22,7 @@ export const productReducer = (state = initialState, action: any) => {
                 return;
 
             default:
-                return drafState
+                return state
 
         }
     })

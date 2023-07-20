@@ -1,27 +1,20 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios';
-import { IUser } from '@/interface/user';
+import { callUserApi } from '@/actions/user';
+import {Dispatch} from 'redux';
 type Props = {}
 
 const Signin = (props: Props) => {
     //tạo ra biến để sử dụng được các chức năng trong reducer
-    const dispatch = useDispatch();
+    const dispatch:Dispatch<any> = useDispatch();
     //lấy dữ liệu từ reducer
     const { user } = useSelector((state: any) => state.user)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
-    const callUserApi = async () => {
-        try {
-            const users = await axios.get("http://localhost:3000/user/");
-            dispatch({ type: "user/login", payload: users })
-        } catch (error) { }
-    }
-    const onHandleSubmit = (d: IUser) => {
-        callUserApi()
+    const onHandleSubmit = (d:any) => {
+        dispatch(callUserApi())
         const data = user.data
         for (let item of data) {
             if((item.acc===d.acc) && (item.pass==d.pass)) {

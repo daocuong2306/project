@@ -1,44 +1,28 @@
-import { edit, getById } from '@/api/products';
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from "react"
+import { editProductApi, getProduct, getProductByID } from '@/actions/product';
+import { Dispatch } from 'redux';
+
 const EditProduct = () => {
     const { id } = useParams()
-    const dispatch = useDispatch();
+    const dispatch: Dispatch<any> = useDispatch();
     //lấy dữ liệu từ reducer
     const { products } = useSelector((state: any) => state.products)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
 
-
-console.log(products);
-
     useEffect(() => {
-        const getProductAPI = async (id: any) => {
-            try {
-                const { data } = await getById(id)
-                dispatch({type:"admin/fetch_productById",payload:data})
-            } catch (error) { }
-        }
-
-        getProductAPI(id)
-
+        dispatch(getProductByID(id));
     }, [])
-    const editProductApi = async (d: any) => {
-        try {
-            const product = await edit(id, d)
-            dispatch({ type: "admin/update_product", payload: product })
-        } catch (error) { }
-    }
+    
     const onHandleSubmit = (d: any) => {
-
-        editProductApi(d)
+        dispatch(editProductApi(d, id))
         url("/products")
     }
     return (
-
         <section className="bg-gray-100">
             <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
