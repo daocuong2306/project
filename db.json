@@ -1,22 +1,6 @@
 {
   "products": [
     {
-      "name": "a",
-      "id": 1
-    },
-    {
-      "id": 2,
-      "name": "Product B"
-    },
-    {
-      "id": 3,
-      "name": "Product C"
-    },
-    {
-      "name": "cuong",
-      "id": 4
-    },
-    {
       "name": "product E",
       "id": 5
     },

@@ -1,4 +1,4 @@
-import { getAll,remove } from '@/api/products'
+import { getAll, remove } from '@/api/products'
 import React from 'react'
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,12 +21,12 @@ const Dashboard = () => {
         getProduct()
     }, [])
 
-    const removeProduct=async(id:any)=>{
+    const removeProduct = async (id: any) => {
         try {
-           const {data} =await remove(id)
-            dispatch({ type: "admin/delete_product", payload: data })
+            await remove(id)
+            dispatch({ type: "admin/delete_product", payload: id })
         } catch (error) {
-            
+
         }
     }
     console.log(products);
@@ -55,7 +55,7 @@ const Dashboard = () => {
                             </td>
                             <div className=''>
                                 <Link to={`/edit/${product.id}`}><button className='bg-green-500 text-white p-[10px]'>Edit</button></Link>
-                                <button className='bg-red-500 text-white p-[10px]' onClick={()=>removeProduct(product.id)}>Delete</button>
+                                <button className='bg-red-500 text-white p-[10px]' onClick={() => removeProduct(product.id)}>Delete</button>
                             </div>
                         </tr>
 
