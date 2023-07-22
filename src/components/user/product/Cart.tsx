@@ -23,10 +23,10 @@ const Cart = (props: Props) => {
 
                         <div className="mt-8">
                             {/* product */}
+                            <ul className="space-y-4">
                             {
                                 products?.map((item: any) => {
-                                    return <ul className="space-y-4">
-                                        <li className="flex items-center gap-4">
+                                    return <li className="flex items-center gap-4">
                                             <img
                                                 src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
                                                 alt=""
@@ -82,9 +82,10 @@ const Cart = (props: Props) => {
                                                 </button>
                                             </div>
                                         </li>
-                                    </ul>
+                                    
                                 })
                             }
+                            </ul>
 
                             <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
                                 <div className="w-screen max-w-lg space-y-4">

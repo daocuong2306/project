@@ -2,17 +2,17 @@
   "products": [
     {
       "name": "12312321",
-      "price": "",
+      "price": "100",
       "id": 7
     },
     {
       "name": "update1",
-      "price": "",
+      "price": "200",
       "id": 1
     },
     {
       "name": "123123213123",
-      "price": "",
+      "price": "300",
       "id": 2
     }
   ],
