@@ -6,6 +6,7 @@ import AddProduct from "./components/admin/addProduct";
 import EditProduct from "./components/admin/editProduct";
 import Product from "./components/user/product/Product";
 import PriceFilter from "./demo/priceFilter";
+import Cart from "./components/user/product/Cart";
 const App = () => {
     return (
       <BrowserRouter>
@@ -18,7 +19,7 @@ const App = () => {
             <Route path="/edit/:id" element={<EditProduct/>}></Route>
             <Route path="/add" element={<AddProduct/>}></Route>
             <Route path="/filter" element={<PriceFilter/>}></Route>
-            
+            <Route path="/cart" element={<Cart/>}></Route>
         </Routes>
       </BrowserRouter>
     );
