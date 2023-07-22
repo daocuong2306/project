@@ -1,3 +1,4 @@
+import { cartReducer } from '@/reducers/Cart';
 import { productReducer } from '@/reducers/productsReducer';
 import { userReducer } from '@/reducers/userReducer';
 import { legacy_createStore as createStore, combineReducers, applyMiddleware, compose } from 'redux';
@@ -16,7 +17,8 @@ const enhancer = composeEnhancers(
 );
 const rootReducer = combineReducers({
     user: userReducer,
-    products: productReducer
+    products: productReducer,
+    cart : cartReducer
 })
 const store = createStore(rootReducer, enhancer);
 export default store 

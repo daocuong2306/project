@@ -1,16 +1,13 @@
-import { getProduct } from '@/actions/product'
-import React, { Dispatch, useEffect } from 'react'
+import { getCarts } from '@/actions/cart'
+import { Dispatch, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-type Props = {}
-
-const Cart = (props: Props) => {
+const Cart = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const { products } = useSelector((state: any) => state.products)
+    const { items } = useSelector((state: any) => state.cart)
     useEffect(() => {
-        dispatch(getProduct())
+        dispatch(getCarts())
     }, [])
-    console.log(products);
 
     return (
         <div>
@@ -23,10 +20,11 @@ const Cart = (props: Props) => {
 
                         <div className="mt-8">
                             {/* product */}
-                            <ul className="space-y-4">
+
                             {
-                                products?.map((item: any) => {
-                                    return <li className="flex items-center gap-4">
+                                items?.map((item: any) => {
+                                    return <ul className="space-y-4" key={item}>
+                                        <li className="flex items-center gap-4">
                                             <img
                                                 src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
                                                 alt=""
@@ -56,13 +54,27 @@ const Cart = (props: Props) => {
                                             <div className="flex flex-1 items-center justify-end gap-2">
                                                 <form>
                                                     <label htmlFor="Line1Qty" className="sr-only"> Quantity </label>
-
+                                                    <span
+                                                        className="inline-flex -space-x-px overflow-hidden rounded-md border bg-white shadow-sm"
+                                                    >
+                                                        <button
+                                                            className="inline-block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative"
+                                                            onClick={() => (dispatch({ type: 'cart/increase', payload: item.id }))}
+                                                        >
+                                                            +
+                                                        </button>
+                                                        <button
+                                                            className="inline-block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative"
+                                                        >
+                                                            -
+                                                        </button>
+                                                    </span>
                                                     <input
                                                         type="number"
                                                         min="1"
-                                                        value="1"
+                                                        value={item.quantity}
                                                         id="Line1Qty"
-                                                        className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                                                        className="h-10 w-12 while border-200 bg-gray-50 p-0 text-center text-xs text-while-700 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                                     />
                                                 </form>
 
@@ -86,20 +98,20 @@ const Cart = (props: Props) => {
                                                 </button>
                                             </div>
                                         </li>
-                                    
+                                    </ul>
+
                                 })
                             }
-                            </ul>
 
                             <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
                                 <div className="w-screen max-w-lg space-y-4">
                                     <dl className="space-y-0.5 text-sm text-gray-700">
                                         <div className="flex justify-between">
-                                                {/* tổng giá */}
+                                            {/* tổng giá */}
                                             <dt>Subtotal</dt>
-                                            {products.reduce((sum: any , item : any)=>{
+                                            {items.reduce((sum: any, item: any) => {
                                                 return sum + item.price
-                                           },0)}
+                                            }, 0)}
                                         </div>
                                         {/* thuế vat */}
                                         <div className="flex justifygi-between">
@@ -114,9 +126,9 @@ const Cart = (props: Props) => {
 
                                         <div className="flex justify-between !text-base font-medium">
                                             <dt>Total</dt>
-                                           {products.reduce((sum: any , item : any)=>{
+                                            {items.reduce((sum: any, item: any) => {
                                                 return sum + item.price
-                                           },0)}
+                                            }, 0)}
                                         </div>
                                     </dl>
 
