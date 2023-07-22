@@ -46,6 +46,10 @@ const Cart = (props: Props) => {
                                                         <dt className="inline">Color:</dt>
                                                         <dd className="inline">White</dd>
                                                     </div>
+                                                    <div>
+                                                        <dt className="inline">Price:</dt>
+                                                        <dd className="inline">{item.price}</dd>
+                                                    </div>
                                                 </dl>
                                             </div>
 
@@ -91,15 +95,18 @@ const Cart = (props: Props) => {
                                 <div className="w-screen max-w-lg space-y-4">
                                     <dl className="space-y-0.5 text-sm text-gray-700">
                                         <div className="flex justify-between">
+                                                {/* tổng giá */}
                                             <dt>Subtotal</dt>
-                                            <dd>£250</dd>
+                                            {products.reduce((sum: any , item : any)=>{
+                                                return sum + item.price
+                                           },0)}
                                         </div>
-
-                                        <div className="flex justify-between">
+                                        {/* thuế vat */}
+                                        <div className="flex justifygi-between">
                                             <dt>VAT</dt>
                                             <dd>£25</dd>
                                         </div>
-
+                                        {/* giảm giá  */}
                                         <div className="flex justify-between">
                                             <dt>Discount</dt>
                                             <dd>-£20</dd>
@@ -107,7 +114,9 @@ const Cart = (props: Props) => {
 
                                         <div className="flex justify-between !text-base font-medium">
                                             <dt>Total</dt>
-                                            <dd>£200</dd>
+                                           {products.reduce((sum: any , item : any)=>{
+                                                return sum + item.price
+                                           },0)}
                                         </div>
                                     </dl>
 
