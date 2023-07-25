@@ -11,7 +11,7 @@ const Product = () => {
         dispatch(getProduct());
     }, [])
     console.log(products);
-    
+
     const onHandleSubmit = (id: any) => {
         dispatch(addCart(id));
     }
@@ -230,8 +230,20 @@ const Product = () => {
                                                         placeholder="To"
                                                         className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                                                     />
+                                                 
                                                 </label>
+                                                
                                             </div>
+                                            <a
+                                                        className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                                                    >
+                                                        
+                                                        <span
+                                                            className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                                                        >
+                                                            search
+                                                        </span>
+                                                    </a>
                                         </div>
                                     </div>
                                 </details>
