@@ -1,4 +1,4 @@
-import { getCarts } from '@/actions/cart'
+import { decreaseCart, getCarts, plusCart, remoteCart } from '@/actions/cart'
 import { Dispatch, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,7 +8,15 @@ const Cart = () => {
     useEffect(() => {
         dispatch(getCarts())
     }, [])
-
+    const onHandleSubmitPlus = (id:any)=>{
+        dispatch(plusCart(id))
+    }
+    const onHandleSubmitDecrease = (id:any)=>{
+        dispatch(decreaseCart(id))
+    }
+    const onHandleSubmitRemove = (id:any)=>{
+        dispatch(remoteCart(id))
+    }
     return (
         <div>
             <section>
@@ -52,19 +60,19 @@ const Cart = () => {
                                             </div>
 
                                             <div className="flex flex-1 items-center justify-end gap-2">
-                                                <form>
                                                     <label htmlFor="Line1Qty" className="sr-only"> Quantity </label>
                                                     <span
                                                         className="inline-flex -space-x-px overflow-hidden rounded-md border bg-white shadow-sm"
                                                     >
                                                         <button
                                                             className="inline-block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative"
-                                                            onClick={() => (dispatch({ type: 'cart/increase', payload: item.id }))}
+                                                            onClick={()=>{onHandleSubmitPlus(item.id)}}
                                                         >
                                                             +
                                                         </button>
                                                         <button
                                                             className="inline-block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative"
+                                                            onClick={()=>{onHandleSubmitDecrease(item.id)}}
                                                         >
                                                             -
                                                         </button>
@@ -76,10 +84,13 @@ const Cart = () => {
                                                         id="Line1Qty"
                                                         className="h-10 w-12 while border-200 bg-gray-50 p-0 text-center text-xs text-while-700 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                                     />
-                                                </form>
 
-                                                <button className="text-gray-600 transition hover:text-red-600">
-                                                    <span className="sr-only">Remove item</span>
+                                                <button className="text-gray-600 transition hover:text-red-600"
+                                                onClick={()=>onHandleSubmitRemove(item.id)}
+                                                >
+                                                    <span className="sr-only"
+                                                    
+                                                    >Remove item</span>
 
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +121,7 @@ const Cart = () => {
                                             {/* tổng giá */}
                                             <dt>Subtotal</dt>
                                             {items.reduce((sum: any, item: any) => {
-                                                return sum + item.price
+                                                return sum + item.price*item.quantity
                                             }, 0)}
                                         </div>
                                         {/* thuế vat */}
@@ -127,7 +138,7 @@ const Cart = () => {
                                         <div className="flex justify-between !text-base font-medium">
                                             <dt>Total</dt>
                                             {items.reduce((sum: any, item: any) => {
-                                                return sum + item.price
+                                                return sum + item.price*item.quantity
                                             }, 0)}
                                         </div>
                                     </dl>

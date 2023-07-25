@@ -10,9 +10,11 @@ const Product = () => {
     useEffect(() => {
         dispatch(getProduct());
     }, [])
-   const onHandleSubmit =(id:any)=>{
-       dispatch(addCart(id));
-   }
+    console.log(products);
+    
+    const onHandleSubmit = (id: any) => {
+        dispatch(addCart(id));
+    }
 
 
     return (
@@ -28,7 +30,6 @@ const Product = () => {
                         natus?
                     </p>
                 </header>
-
                 <div className="mt-8 block lg:hidden">
                     <button
                         className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600"
@@ -51,7 +52,6 @@ const Product = () => {
                         </svg>
                     </button>
                 </div>
-
                 <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
                     <div className="hidden space-y-4 lg:block">
                         <div>
@@ -382,7 +382,6 @@ const Product = () => {
                             </div>
                         </div>
                     </div>
-
                     <div className="lg:col-span-3">
                         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                             {products?.map((product: any) => {
@@ -393,7 +392,6 @@ const Product = () => {
                                             alt=""
                                             className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                                         />
-
                                         <div className="relative bg-white pt-3">
                                             <h3
                                                 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
@@ -414,7 +412,7 @@ const Product = () => {
                                                 ></span>
                                                 <span
                                                     className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
-                                                    onClick={()=>onHandleSubmit(product.id)}
+                                                    onClick={() => onHandleSubmit(product.id)}
                                                 >
                                                     Add to cart
                                                 </span>
