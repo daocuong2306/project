@@ -1,19 +1,17 @@
 import { addProductApi } from '@/actions/product';
-import { create } from '@/api/products';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Dispatch } from 'redux';
 const AddProduct = () => {
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch = useAppDispatch()
     //lấy dữ liệu từ reducer
-    const { products } = useSelector((state: any) => state.products)
+    const { products } = useAppSelector((state: any) => state.products)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
 
-    const onHandleSubmit = (d: any) => {
-        dispatch(addProductApi(d))
+    const onHandleSubmit = (data: any) => {
+        dispatch(addProductApi(data))
         url("/products")
     }
     return <section className="bg-gray-100">

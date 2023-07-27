@@ -1,15 +1,14 @@
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from "react"
-import { editProductApi, getProduct, getProductByID } from '@/actions/product';
-import { Dispatch } from 'redux';
+import { editProductApi,getProductByID } from '@/actions/product';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 
 const EditProduct = () => {
     const { id } = useParams()
-    const dispatch: Dispatch<any> = useDispatch();
+    const dispatch = useAppDispatch()
     //lấy dữ liệu từ reducer
-    const { product } = useSelector((state: any) => state.products)
+    const { product } = useAppSelector((state: any) => state.products)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
@@ -18,8 +17,10 @@ const EditProduct = () => {
         dispatch(getProductByID(id));
     }, [])
     
-    const onHandleSubmit = (d: any) => {
-        dispatch(editProductApi(id, d))
+    const onHandleSubmit = (d:any) => {
+        console.log("d" ,d);
+        const data = {...d,id : id}
+        dispatch(editProductApi(data))
         url("/products")
     }
     return (

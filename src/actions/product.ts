@@ -1,37 +1,32 @@
 import { create, edit, getAll, getById, remove } from "@/api/products"
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const getProduct = () => async (dispatch: any) => {
+
+export const getProduct = createAsyncThunk('product/getAll', async () => {
+    const { data } = await getAll()
+    return data
+})
+export const getProductByID = createAsyncThunk('product/getProductId', async (id:any) => {
+    const { data } = await getById(id);
+    return data
+})
+
+export const removeProduct = createAsyncThunk('product/removeProduct', async (id : any) => {
+    await remove(id)
+})
+export const addProductApi = createAsyncThunk('product/addProductApi', async (data:any) => {
     try {
-        const { data } = await getAll()
-        dispatch({ type: "admin/fetch_product", payload: data })
-    } catch (error) {
-    }
-}
-export const getProductByID = (id: any) => async (dispatch: any) => {
-    try {
-        const { data } = await getById(id)
-        dispatch({type: "admin/fetch_productByid" , payload : data})        
+        const product = await create(data)
+        return product
     } catch (error) { }
-}
+})
 
-export const removeProduct = (id: any) => async (dispatch: any) => {
+export const editProductApi = createAsyncThunk('product/editProductApi', async (d:any) => {
     try {
-        await remove(id)
-        dispatch({ type: "admin/delete_product", payload: id })
-    } catch (error) {
-
-    }
-}
-export const addProductApi = (d: any) => async (dispatch: any) => {
-    try {
-        const product = await create(d)
-        dispatch({ type: "admin/add_product", payload: product })
+        console.log(d);
+        
+        const {data}  = await edit(d);
+        console.log(data);
+        return data
     } catch (error) { }
-}
-
-export const editProductApi = (id: any, d: any) => async (dispatch: any) => {
-    try {
-        const { data } = await edit(id, d);
-        dispatch({ type: "admin/update_product", payload: data })
-    } catch (error) { }
-}
+})

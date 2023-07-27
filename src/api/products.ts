@@ -15,8 +15,8 @@ export const create=(data:any)=>{
 export const remove=(id:any)=>{
     return instance.delete(`/${id}`)
 }
-export const edit=(id:any,data:any)=>{
-    return instance.put(`/${id}`,data)
+export const edit=(data:any)=>{
+    return instance.put(`/${data.id}`,data)
 }
 
 export default instance

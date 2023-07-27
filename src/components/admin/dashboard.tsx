@@ -1,21 +1,13 @@
 import { getProduct, removeProduct } from '@/actions/product'
-import { remove } from '@/api/products'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { useEffect } from "react"
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Dispatch } from 'redux'
 const Dashboard = () => {
-    const dispatch: Dispatch<any> = useDispatch()
-    const { products } = useSelector((state: any) => state.products);
+    const dispatch = useAppDispatch()
+    const { products } = useAppSelector((state: any) => state.products);
     useEffect(() => {
         dispatch(getProduct());
     }, [])
-    console.log(products);
-    
-    const removeProduct=async(id:any)=>{
-        await remove(id)
-        dispatch({type:"admin/delete_product",payload:id})
-    }
     return (
         <div className="overflow-x-auto">
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
