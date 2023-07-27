@@ -1,21 +1,42 @@
 import { addCart } from '@/actions/cart'
 import { getProduct } from '@/actions/product'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useForm, Controller } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
+import * as yup from 'yup';
 
+const schema = yup.object().shape({
+    inputField: yup.string().required('This field is required'),
+});
 const Product = () => {
     const dispatch: Dispatch<any> = useDispatch()
     const { products } = useSelector((state: any) => state.products);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const { control, handleSubmit, watch } = useForm();
+    const { min }: any = watch(['min']);
+    const { max }: any = watch(['max']);
+
+    // Hàm xử lý khi người dùng gửi form
+    const onSubmit = (data: any) => {
+        //data.min data.max
+        if (data.min > data.max) {
+            setFilteredProducts(products)
+        } else {
+            const filterProduct = products.filter((item: any) => item?.price >= data.min && item?.price <= data.max)
+            console.log(filterProduct);
+            setFilteredProducts(filterProduct);
+        }
+    };
+    console.log(filteredProducts);
+
     useEffect(() => {
         dispatch(getProduct());
     }, [])
-    console.log(products);
 
     const onHandleSubmit = (id: any) => {
         dispatch(addCart(id));
     }
-
 
     return (
         <section>
@@ -192,59 +213,49 @@ const Product = () => {
                                     </summary>
 
                                     <div className="border-t border-gray-200 bg-white">
-                                        <header className="flex items-center justify-between p-4">
-                                            <span className="text-sm text-gray-700">
-                                                The highest price is $600
-                                            </span>
 
-                                            <button
-                                                type="button"
-                                                className="text-sm text-gray-900 underline underline-offset-4"
-                                            >
-                                                Reset
-                                            </button>
-                                        </header>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            <div className='flex'>
+                                                <div className='w-[40%]'>
+                                                    <Controller
 
-                                        <div className="border-t border-gray-200 p-4">
-                                            <div className="flex justify-between gap-4">
-                                                <label
-                                                    htmlFor="FilterPriceFrom"
-                                                    className="flex items-center gap-2"
-                                                >
-                                                    <span className="text-sm text-gray-600">$</span>
-
-                                                    <input
-                                                        type="number"
-                                                        id="FilterPriceFrom"
-                                                        placeholder="From"
-                                                        className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                                        name="min"
+                                                        control={control}
+                                                        defaultValue="0"
+                                                        render={({ field }) => (
+                                                            <div>
+                                                                <input
+                                                                    className='w-full'
+                                                                    placeholder='Min price'
+                                                                    type="text"
+                                                                    {...field}
+                                                                />
+                                                            </div>
+                                                        )}
                                                     />
-                                                </label>
-
-                                                <label htmlFor="FilterPriceTo" className="flex items-center gap-2">
-                                                    <span className="text-sm text-gray-600">$</span>
-
-                                                    <input
-                                                        type="number"
-                                                        id="FilterPriceTo"
-                                                        placeholder="To"
-                                                        className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+                                                </div>
+                                                <div className='w-[20%]'></div>
+                                                <div className='w-[40%]'>
+                                                    <Controller
+                                                        name="max"
+                                                        control={control}
+                                                        defaultValue="0"
+                                                        render={({ field }) => (
+                                                            <div>
+                                                                <input
+                                                                    className='w-full'
+                                                                    placeholder='Max price'
+                                                                    type="text"
+                                                                    {...field}
+                                                                />
+                                                            </div>
+                                                        )}
                                                     />
-                                                 
-                                                </label>
-                                                
+                                                </div>
                                             </div>
-                                            <a
-                                                        className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                                                    >
-                                                        
-                                                        <span
-                                                            className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
-                                                        >
-                                                            search
-                                                        </span>
-                                                    </a>
-                                        </div>
+                                            <button type="submit" className='p-[5px] bg-green-500'>Filter</button>
+
+                                        </form>
                                     </div>
                                 </details>
 
@@ -396,43 +407,81 @@ const Product = () => {
                     </div>
                     <div className="lg:col-span-3">
                         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {products?.map((product: any) => {
-                                return <li key={product.id}>
-                                    <a href="#" className="group block overflow-hidden">
-                                        <img
-                                            src={product.image}
-                                            alt=""
-                                            className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                                        />
-                                        <div className="relative bg-white pt-3">
-                                            <h3
-                                                className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                                            >
-                                                {product.name}
-                                            </h3>
-
-                                            <p className="mt-2">
-                                                <span className="sr-only"> Regular Price </span>
-
-                                                <span className="tracking-wider text-gray-900"> {product.price} $ </span>
-                                            </p>
-                                            <a
-                                                className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                                            >
-                                                <span
-                                                    className="absolute inset-0 border border-red-600 group-active:border-red-500"
-                                                ></span>
-                                                <span
-                                                    className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
-                                                    onClick={() => onHandleSubmit(product.id)}
+                            {filteredProducts.length > 0 // Use filteredProducts here instead of products
+                                ? filteredProducts.map((product: any) => {
+                                    return <li key={product.id}>
+                                        <a href="#" className="group block overflow-hidden">
+                                            <img
+                                                src={product.image}
+                                                alt=""
+                                                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                                            />
+                                            <div className="relative bg-white pt-3">
+                                                <h3
+                                                    className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                                                 >
-                                                    Add to cart
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
-                            })}
+                                                    {product.name}
+                                                </h3>
+
+                                                <p className="mt-2">
+                                                    <span className="sr-only"> Regular Price </span>
+
+                                                    <span className="tracking-wider text-gray-900"> {product.price} $ </span>
+                                                </p>
+                                                <a
+                                                    className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                                                >
+                                                    <span
+                                                        className="absolute inset-0 border border-red-600 group-active:border-red-500"
+                                                    ></span>
+                                                    <span
+                                                        className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                                                        onClick={() => onHandleSubmit(product.id)}
+                                                    >
+                                                        Add to cart
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                })
+                                : products?.map((product: any) => {
+                                    return <li key={product.id}>
+                                        <a href="#" className="group block overflow-hidden">
+                                            <img
+                                                src={product.image}
+                                                alt=""
+                                                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                                            />
+                                            <div className="relative bg-white pt-3">
+                                                <h3
+                                                    className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
+                                                >
+                                                    {product.name}
+                                                </h3>
+
+                                                <p className="mt-2">
+                                                    <span className="sr-only"> Regular Price </span>
+
+                                                    <span className="tracking-wider text-gray-900"> {product.price} $ </span>
+                                                </p>
+                                                <a
+                                                    className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                                                >
+                                                    <span
+                                                        className="absolute inset-0 border border-red-600 group-active:border-red-500"
+                                                    ></span>
+                                                    <span
+                                                        className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                                                        onClick={() => onHandleSubmit(product.id)}
+                                                    >
+                                                        Add to cart
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                })}
 
 
                         </ul>
