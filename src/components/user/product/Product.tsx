@@ -1,17 +1,16 @@
 import { addCart } from '@/actions/cart'
 import { getProduct } from '@/actions/product'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { useEffect, useState } from "react"
 import { useForm, Controller } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
     inputField: yup.string().required('This field is required'),
 });
 const Product = () => {
-    const dispatch: Dispatch<any> = useDispatch()
-    const { products } = useSelector((state: any) => state.products);
+    const dispatch = useAppDispatch()
+    const { products } = useAppSelector((state: any) => state.products);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const { control, handleSubmit, watch } = useForm();
     const { min }: any = watch(['min']);

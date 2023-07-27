@@ -1,29 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import {useNavigate} from 'react-router-dom'
-import { callUserApi } from '@/actions/user';
-import {Dispatch} from 'redux';
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { loginUser } from '@/actions/user';
 type Props = {}
 
 const Signin = (props: Props) => {
     //tạo ra biến để sử dụng được các chức năng trong reducer
-    const dispatch:Dispatch<any> = useDispatch();
+    const dispatch = useAppDispatch();
     //lấy dữ liệu từ reducer
-    const { user } = useSelector((state: any) => state.user)
+    const { user } = useAppSelector((state: any) => state.user)
     //tạo 1 biến navigate 
     const url = useNavigate()
     const { register, handleSubmit } = useForm();
-    const onHandleSubmit = (d:any) => {
-        dispatch(callUserApi())
+    const onHandleSubmit = (d: any) => {
+        dispatch(loginUser())
         const data = user.data
         for (let item of data) {
-            if((item.acc===d.acc) && (item.pass==d.pass)) {
-               url("/signin")
+            if ((item.acc === d.acc) && (item.pass == d.pass)) {
+                url("/signin")
             } else {
                 alert("sai tk hoac mk")
             }
         }
-       
+
     }
     return (
         <>

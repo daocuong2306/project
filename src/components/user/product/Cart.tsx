@@ -1,10 +1,12 @@
 import { decreaseCart, getCarts, plusCart, remoteCart } from '@/actions/cart'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { Dispatch, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
-    const dispatch: Dispatch<any> = useDispatch()
-    const { items } = useSelector((state: any) => state.cart)
+    const dispatch= useAppDispatch()
+    const { items } = useAppSelector((state: any) => state.cart)
+    console.log(items);
+    
     useEffect(() => {
         dispatch(getCarts())
     }, [])

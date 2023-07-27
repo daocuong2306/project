@@ -19,25 +19,23 @@
   ],
   "carts": [
     {
-      "name": "update1",
-      "price": 200,
-      "image": "https://www.sangia.vn/uploads/Image/2020/11/14/%C3%81o%20thun%20in%20h%C3%ACnh%20%C4%91%E1%BA%B9p.jpg",
-      "id": 1,
-      "quantity": 1
+      "name": "123123",
+      "price": "1231",
+      "id": 7,
+      "quantity": 10
     },
     {
-      "name": "12312321",
-      "price": 100,
-      "image": "https://toigingiuvedep.vn/wp-content/uploads/2022/04/ao-thun-in-hinh-1.jpg",
-      "id": 7,
-      "quantity": 2
+      "name": "cuong",
+      "price": "123",
+      "id": 1,
+      "quantity": 8
     },
     {
       "name": "123123213123",
       "price": 300,
       "image": "https://thietkewebchuyen.com/images/mau-banner-thiet-ke-gia-re-dep-tai-tphcm/dich-vu-thiet-ke-hinh-anh-ao-thun-ao-lop-hoi-nhom-dep-tai-tphcm%C2%A0.jpg",
       "id": 2,
-      "quantity": 1
+      "quantity": 7
     }
   ],
   "user": [

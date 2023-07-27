@@ -23,10 +23,7 @@ export const addProductApi = createAsyncThunk('product/addProductApi', async (da
 
 export const editProductApi = createAsyncThunk('product/editProductApi', async (d:any) => {
     try {
-        console.log(d);
-        
         const {data}  = await edit(d);
-        console.log(data);
         return data
     } catch (error) { }
 })

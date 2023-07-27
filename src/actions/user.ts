@@ -1,9 +1,8 @@
 import { getAll } from "@/api/user";
-import axios from "axios";
-
-export const callUserApi = () => async (dispatch: any) => {
+import { createAsyncThunk } from '@reduxjs/toolkit'
+export const loginUser = createAsyncThunk('user/loginUser', async () => {
     try {
         const users = await getAll();
-        dispatch({ type: "user/login", payload: users })
+        return users
     } catch (error) { }
-}
+})

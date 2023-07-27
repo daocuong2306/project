@@ -1,23 +1,23 @@
 import { create, edit, getAll, getByIdCart, removeCart } from "@/api/cart";
 import { getById } from "@/api/products";
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const getCarts = () => async (dispatch: any) => {
+
+export const getCarts = createAsyncThunk('cart/getCarts', async () => {
     try {
         const { data } = await getAll();
-
-        dispatch({ type: "cart/all", payload: data })
+        return data
     } catch (error) { }
-}
+})
 
-export const addCart = (id: any) => async () => {
+export const addCart = createAsyncThunk('cart/addCart', async (id: any) => {
     try {
         const { data } = await getById(id);
         const check = await getAll();
-        console.log(check.data);
-
         const existProductIndex = check.data.findIndex((item: any) => item.id === data.id);
         if (existProductIndex === -1) {
-            await create({ ...data, quantity: 1 });
+            const value = await create({ ...data, quantity: 1 });
+            return value;
         } else {
             check.data[existProductIndex].quantity++
             await edit(id, check.data[existProductIndex])
@@ -25,43 +25,38 @@ export const addCart = (id: any) => async () => {
     } catch (error) {
 
     }
-}
+})
 
-
-export const plusCart = (id: any) => async (dispatch: any) => {
+export const plusCart = createAsyncThunk('cart/plusCart', async (id: any) => {
     try {
         const { data } = await getByIdCart(id);
         data.quantity++;
         await edit(id, data)
-        dispatch({ type: "cart/increase", payload: id })
+        return id
     } catch (error) {
 
     }
-}
-export const remoteCart = (id: any) => async (dispatch: any) => {
+})
+export const remoteCart = createAsyncThunk('cart/remoteCart', async (id: any) => {
     const check = window.confirm("bạn có muốn xóa hay không");
     if (check) {
         await removeCart(id);
-        dispatch({ type: 'cart/remote', payload: id })
+        return id;
     }
-
-}
-export const decreaseCart = (id: any) => async (dispatch: any) => {
+})
+export const decreaseCart = createAsyncThunk('cart/decreaseCart', async (id: any) => {
     try {
         const { data } = await getByIdCart(id);
-        console.log(data.quantity);
         if (data.quantity > 1) {
             data.quantity--;
             await edit(id, data)
-            dispatch({ type: "cart/decrease", payload: id })
+            return id
         } else {
             const check = window.confirm("bạn có muốn xóa");
             if (check) {
                 await removeCart(id);
-                dispatch({ type: 'cart/remote', payload: id })
             }
         }
     } catch (error) {
-
     }
-}
+})

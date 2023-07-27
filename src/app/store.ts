@@ -1,7 +1,7 @@
-import { cartReducer } from '@/reducers/Cart';
-import { userReducer } from '@/reducers/userReducer';
 import { productReducer } from '../slices/Product';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { cartReducer } from '@/slices/Cart';
+import { userReducer } from '@/slices/User';
 const store = configureStore(
     {
         reducer: {
