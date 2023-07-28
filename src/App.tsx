@@ -7,6 +7,7 @@ import EditProduct from "./components/admin/editProduct";
 import Product from "./components/user/product/Product";
 import PriceFilter from "./demo/priceFilter";
 import Cart from "./components/user/product/Cart";
+import Details from "./components/user/product/details";
 const App = () => {
     return (
       <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/products" element={<Dashboard/>}></Route>
             <Route path="/user/products" element={<Product/>}></Route>
             <Route path="/edit/:id" element={<EditProduct/>}></Route>
+            <Route path="/detail/:id" element={<Details/>}></Route>
             <Route path="/add" element={<AddProduct/>}></Route>
             <Route path="/filter" element={<PriceFilter/>}></Route>
             <Route path="/cart" element={<Cart/>}></Route>
