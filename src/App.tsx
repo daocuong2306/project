@@ -9,6 +9,7 @@ import PriceFilter from "./demo/priceFilter";
 import Cart from "./components/user/product/Cart";
 import Details from "./components/user/product/Details";
 import Header from "./components/layout/header";
+import Search from "./components/layout/search";
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,6 +25,8 @@ const App = () => {
         <Route path="add" element={<AddProduct />}></Route>
         <Route path="filter" element={<PriceFilter />}></Route>
         <Route path="cart" element={<Cart />}></Route>
+        <Route path="search" element={<Search />}></Route>
+        
       </Routes>
     </BrowserRouter>
   );
