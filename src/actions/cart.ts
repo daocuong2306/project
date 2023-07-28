@@ -13,11 +13,15 @@ export const getCarts = createAsyncThunk('cart/getCarts', async () => {
 export const addCart = createAsyncThunk('cart/addCart', async (id: any) => {
     try {
         const { data } = await getById(id);
+        console.log("data cart",data);
+        
         const check = await getAll();
         const existProductIndex = check.data.findIndex((item: any) => item.id === data.id);
         if (existProductIndex === -1) {
             const value = await create({ ...data, quantity: 1 });
-            return value;
+            console.log(value.data);
+            
+            return value.data;
         } else {
             check.data[existProductIndex].quantity++
             await edit(id, check.data[existProductIndex])

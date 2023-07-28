@@ -3,6 +3,7 @@ import { getProduct } from '@/actions/product'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { useEffect, useState } from "react"
 import { useForm, Controller } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
@@ -18,7 +19,12 @@ const Product = () => {
 
     // Hàm xử lý khi người dùng gửi form
     const onSubmit = (data: any) => {
-        //data.min data.max
+        let d = 0;
+        if (Number(data.min) > Number(data.max)) {
+            d = data.min;
+            data.min = data.max;
+            data.max = d;
+        }
         if (data.min > data.max) {
             setFilteredProducts(products)
         } else {
@@ -217,7 +223,6 @@ const Product = () => {
                                             <div className='flex'>
                                                 <div className='w-[40%]'>
                                                     <Controller
-
                                                         name="min"
                                                         control={control}
                                                         defaultValue="0"
@@ -409,7 +414,7 @@ const Product = () => {
                             {filteredProducts.length > 0 // Use filteredProducts here instead of products
                                 ? filteredProducts.map((product: any) => {
                                     return <li key={product.id}>
-                                        <a href="#" className="group block overflow-hidden">
+                                        <Link to={`/details/${product.slug}`} className="group block overflow-hidden">
                                             <img
                                                 src={product.image}
                                                 alt=""
@@ -427,26 +432,28 @@ const Product = () => {
 
                                                     <span className="tracking-wider text-gray-900"> {product.price} $ </span>
                                                 </p>
-                                                <a
-                                                    className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                                                >
-                                                    <span
-                                                        className="absolute inset-0 border border-red-600 group-active:border-red-500"
-                                                    ></span>
-                                                    <span
-                                                        className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
-                                                        onClick={() => onHandleSubmit(product.id)}
-                                                    >
-                                                        Add to cart
-                                                    </span>
-                                                </a>
+
                                             </div>
+
+                                        </Link>
+                                        <a
+                                            className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                                        >
+                                            <span
+                                                className="absolute inset-0 border border-red-600 group-active:border-red-500"
+                                            ></span>
+                                            <span
+                                                className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                                                onClick={() => onHandleSubmit(product.id)}
+                                            >
+                                                Add to cart
+                                            </span>
                                         </a>
                                     </li>
                                 })
                                 : products?.map((product: any) => {
                                     return <li key={product.id}>
-                                        <a href="#" className="group block overflow-hidden">
+                                        <Link to={`/details/${product.slug}`} className="group block overflow-hidden">
                                             <img
                                                 src={product.image}
                                                 alt=""
@@ -464,20 +471,21 @@ const Product = () => {
 
                                                     <span className="tracking-wider text-gray-900"> {product.price} $ </span>
                                                 </p>
-                                                <a
-                                                    className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
-                                                >
-                                                    <span
-                                                        className="absolute inset-0 border border-red-600 group-active:border-red-500"
-                                                    ></span>
-                                                    <span
-                                                        className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
-                                                        onClick={() => onHandleSubmit(product.id)}
-                                                    >
-                                                        Add to cart
-                                                    </span>
-                                                </a>
+
                                             </div>
+                                        </Link>
+                                        <a
+                                            className="group relative inline-block text-sm font-medium text-white focus:outline-none focus:ring"
+                                        >
+                                            <span
+                                                className="absolute inset-0 border border-red-600 group-active:border-red-500"
+                                            ></span>
+                                            <span
+                                                className="block border border-red-600 bg-red-600 px-12 py-3 transition-transform active:border-red-500 active:bg-red-500 group-hover:-translate-x-1 group-hover:-translate-y-1"
+                                                onClick={() => onHandleSubmit(product.id)}
+                                            >
+                                                Add to cart
+                                            </span>
                                         </a>
                                     </li>
                                 })}

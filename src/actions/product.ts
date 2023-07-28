@@ -1,4 +1,4 @@
-import { create, edit, getAll, getById, remove } from "@/api/products"
+import { create, edit, getAll, getById, getByslug, remove } from "@/api/products"
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 
@@ -8,9 +8,14 @@ export const getProduct = createAsyncThunk('product/getAll', async () => {
 })
 export const getProductByID = createAsyncThunk('product/getProductId', async (id:any) => {
     const { data } = await getById(id);
+    console.log("data",data);
+    
     return data
 })
-
+export const getProductBySlug = createAsyncThunk('product/getProductBySlug', async (slug:any) => {
+    const { data } = await getByslug(slug);
+    return data
+})
 export const removeProduct = createAsyncThunk('product/removeProduct', async (id : any) => {
     await remove(id)
 })

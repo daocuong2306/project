@@ -1,4 +1,4 @@
-import { addProductApi, editProductApi, getProduct, getProductByID, removeProduct } from '@/actions/product'
+import { addProductApi, editProductApi, getProduct, getProductByID, getProductBySlug, removeProduct } from '@/actions/product'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -13,8 +13,11 @@ const productSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getProduct.fulfilled, (state, action) => {
             state.products = action.payload;
-        }), 
+        }),
             builder.addCase(getProductByID.fulfilled, (state, action) => {
+                state.product = action.payload;
+            }),
+            builder.addCase(getProductBySlug.fulfilled, (state, action) => {
                 state.product = action.payload;
             }),
             builder.addCase(removeProduct.fulfilled, (state, action) => {
