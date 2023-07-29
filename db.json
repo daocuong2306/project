@@ -22,6 +22,20 @@
       "slug": "123123213123"
     }
   ],
+  "comments": [
+    {
+      "productSlug": "123123",
+      "userId": 1,
+      "date": "10/02/2021",
+      "content": "Very straight-to-point article. Really worth time reading. Thank you! But tools are just the instruments for the UX designers. The knowledge of the design tools are as important as the creation of the design strategy."
+    },
+    {
+      "productSlug": "123123",
+      "userId": 2,
+      "date": "10/02/2021",
+      "content": "hasdhasdsad"
+    }
+  ],
   "carts": [
     {
       "name": "cuong abc",

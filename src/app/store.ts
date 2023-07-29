@@ -2,12 +2,14 @@ import { productReducer } from '../slices/Product';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { cartReducer } from '@/slices/Cart';
 import { userReducer } from '@/slices/User';
+import { commentsReducer } from '@/slices/Comments';
 const store = configureStore(
     {
         reducer: {
             user: userReducer,
             products: productReducer,
-            cart: cartReducer
+            cart: cartReducer,
+            comments : commentsReducer
         }
     }
 )
