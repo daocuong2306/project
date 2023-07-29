@@ -8,13 +8,12 @@ export const getComments = createAsyncThunk('comments/getComments', async () => 
     } catch (error) { }
 })
 
-export const addComments = createAsyncThunk('comments/addComments', async (data :any) => {
+export const addComments = createAsyncThunk('comments/addComments', async (comment :any) => {
     try {
-        console.log(data);
+       
         
-        const comment = await addComment(data);
-        console.log(comment);
+        const {data} = await addComment(comment);
         
-        return comment
+        return data
     } catch (error) { }
 })

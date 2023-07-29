@@ -23,7 +23,7 @@ const Comments = (props: Props) => {
         const { content } = data
         const comment = { content, productSlug: slug, userId: 1, date: date }
         dispatch(addComments(comment))
-
+        
     }
     console.log(comments);
     
