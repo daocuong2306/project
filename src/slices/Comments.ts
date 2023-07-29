@@ -1,4 +1,4 @@
-import { getComments } from '@/actions/comments';
+import { addComments, getComments } from '@/actions/comments';
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -13,6 +13,11 @@ const commentsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getComments.fulfilled, (state, action) => {
             state.comments = action.payload;
+        }),
+        builder.addCase(addComments.fulfilled, (state, action) => {
+            console.log(action.payload);
+            
+            state.comments.push(action.payload)
         })
     }
 })

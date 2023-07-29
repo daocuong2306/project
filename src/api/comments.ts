@@ -9,7 +9,9 @@ export const getAllComments = () => {
 export const getByslugComments = (slug: any) => {
     return instance.get(`?slug=${slug}`)
 }
-export const createComments = (data: any) => {
+export const addComment = (data: any) => {
+    console.log(data);
+    
     return instance.post("", data)
 }
 export const removeComments = (id: any) => {

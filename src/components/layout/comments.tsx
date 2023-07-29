@@ -1,17 +1,32 @@
-import { getComments } from '@/actions/comments';
+import { addComments, getComments } from '@/actions/comments';
+import { loginUser } from '@/actions/user';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-
+import { useForm } from 'react-hook-form'
 type Props = {}
 
 const Comments = (props: Props) => {
     const { slug } = useParams();
     const dispatch = useAppDispatch()
     const { comments } = useAppSelector((state: any) => state.comments);
+    const { user } = useAppSelector((state: any) => state.user)
+
     useEffect(() => {
+        dispatch(loginUser());
         dispatch(getComments());
     }, [])
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data: any) => {
+        var today = new Date(),
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const { content } = data
+        const comment = { content, productSlug: slug, userId: 1, date: date }
+        dispatch(addComments(comment))
+
+    }
+    console.log(comments);
+    
     const comment = comments.filter((item: any) => item.productSlug == slug)
     return (
         <section className="bg-white gray:bg-gray-900 py-8 lg:py-16">
@@ -23,39 +38,41 @@ const Comments = (props: Props) => {
 
                 <label htmlFor="OrderNotes" className="sr-only">Order notes</label>
 
-                <div className="overflow-hidden">
-                    <textarea
-                        id="OrderNotes"
-                        className="w-full resize-none  px-0 align-top sm:text-sm"
-                        placeholder="Enter any additional order notes..."
-                    ></textarea>
+                <form action="" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="overflow-hidden">
+                        <textarea
+                            id="OrderNotes"
+                            className="w-full resize-none  px-0 align-top sm:text-sm"
+                            placeholder="Enter any additional order notes..."
+                            {...register("content")}
+                        ></textarea>
 
-                    <div className="flex items-center justify-end gap-2 py-3">
-                        <button
-                            type="button"
-                            className="rounded bg-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-600"
-                        >
-                            Clear
-                        </button>
+                        <div className="flex items-center justify-end gap-2 py-3">
+                            <button
+                                className="rounded bg-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-600"
+                            >
+                                Clear
+                            </button>
 
-                        <button
-                            type="button"
-                            className="rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700"
-                        >
-                            Add
-                        </button>
+                            <button
+                                type="submit"
+                                className="rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700"
+                            >
+                                Add
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 {comment?.map((item: any) => {
-
+                    const dataUser = user.find((data: any) => data.id == item.userId);
                     return <article className="p-6 mb-6 text-base bg-white rounded-lg gray:bg-gray-900">
                         <footer className="flex justify-between items-center mb-2">
                             <div className="flex items-center">
                                 <p className="inline-flex items-center mr-3 text-sm text-gray-900 gray:text-white"><img
                                     className="mr-2 w-6 h-6 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                                    src={dataUser.image}
                                     alt="Michael Gough"></img>
-                                    {item.userId}
+                                    {dataUser.name}
                                 </p>
                                 <p className="text-sm text-gray-600 gray:text-gray-400"><time dateTime="2022-02-08"
                                     title="February 8th, 2022">{item.date}</time></p>

@@ -2,7 +2,7 @@ import { getAll } from "@/api/user";
 import { createAsyncThunk } from '@reduxjs/toolkit'
 export const loginUser = createAsyncThunk('user/loginUser', async () => {
     try {
-        const users = await getAll();
-        return users
+        const {data} = await getAll();
+        return data
     } catch (error) { }
 })

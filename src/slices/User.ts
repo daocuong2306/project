@@ -1,10 +1,10 @@
-import { loginUser } from '@/actions/user';
+import { getUsers, loginUser } from '@/actions/user';
 import { createSlice } from '@reduxjs/toolkit'
 
 
 
 const initialState = {
-    user: [] as any[]
+    user: {} as any
 }
 const userSlice = createSlice({
     name: 'user',
