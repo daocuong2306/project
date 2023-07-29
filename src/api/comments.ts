@@ -10,7 +10,6 @@ export const getByslugComments = (slug: any) => {
     return instance.get(`?slug=${slug}`)
 }
 export const addComment = (data: any) => {
-    console.log(data);
     
     return instance.post("", data)
 }
