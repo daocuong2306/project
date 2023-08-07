@@ -13,14 +13,14 @@ export const getCarts = createAsyncThunk('cart/getCarts', async () => {
 export const addCart = createAsyncThunk('cart/addCart', async (id: any) => {
     try {
         const { data } = await getById(id);
-        console.log("data cart",data);
-        
+        console.log("data cart", data);
+
         const check = await getAll();
         const existProductIndex = check.data.findIndex((item: any) => item.id === data.id);
         if (existProductIndex === -1) {
             const value = await create({ ...data, quantity: 1 });
             console.log(value.data);
-            
+
             return value.data;
         } else {
             check.data[existProductIndex].quantity++
@@ -54,11 +54,12 @@ export const decreaseCart = createAsyncThunk('cart/decreaseCart', async (id: any
         if (data.quantity > 1) {
             data.quantity--;
             await edit(id, data)
-            return id
+            return { id }
         } else {
             const check = window.confirm("bạn có muốn xóa");
             if (check) {
                 await removeCart(id);
+                return { id, count: 1 }
             }
         }
     } catch (error) {

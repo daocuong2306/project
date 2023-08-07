@@ -11,12 +11,13 @@ import Details from "./components/user/product/Details";
 import Header from "./components/layout/header";
 import Search from "./components/layout/search";
 import Footer from "./components/layout/Footer";
+import Home from "./components/layout/Home";
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes >
-        <Route index element={<Signin />}></Route>
+        <Route index element={<Home />}></Route>
         <Route path="signin" element={<Signin />}></Route>
         <Route path="signup" element={<Signup />}></Route>
         <Route path="products" element={<Dashboard />}></Route>
